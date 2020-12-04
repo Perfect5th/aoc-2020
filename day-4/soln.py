@@ -3,13 +3,13 @@ import re
 
 fields = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']
 rules = {
-    'byr': [r'byr:(\d{4})', 1920, 2002],
-    'iyr': [r'iyr:(\d{4})', 2010, 2020],
-    'eyr': [r'eyr:(\d{4})', 2020, 2030],
-    'hgt': [r'hgt:(\d+)(cm|in)'],
-    'hcl': [r'hcl:#[0-9a-f]{6}'],
-    'ecl': [r'ecl:(amb|blu|brn|gry|grn|hzl|oth)'],
-    'pid': [r'pid:\d{9}'],
+    'byr': [r'\sbyr:(\d{4})\s', 1920, 2002],
+    'iyr': [r'\siyr:(\d{4})\s', 2010, 2020],
+    'eyr': [r'\seyr:(\d{4})\s', 2020, 2030],
+    'hgt': [r'\shgt:(\d+)(cm|in)\s'],
+    'hcl': [r'\shcl:#[0-9a-f]{6}\s'],
+    'ecl': [r'\secl:(amb|blu|brn|gry|grn|hzl|oth)\s'],
+    'pid': [r'\spid:\d{9}\s'],
 }
 
 def read_passport(ipt):
@@ -46,7 +46,6 @@ def validate(field, passport):
         return False
 
     if len(rule) == 3:
-        # Check if in range
         value = int(found.group(1))
         return value >= rule[1] and value <= rule[2]
 
