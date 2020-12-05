@@ -4,28 +4,18 @@ def to_binary(ticket):
     ticket = ticket.replace('L', '0')
     ticket = ticket.replace('R', '1')
 
-    return ticket
+    return int(ticket, 2)
 
 
 def part1(ipt):
-    maximum = 0
-    
-    for t in ipt:
-        as_binary = to_binary(t)
-
-        seatid = int(as_binary, 2) 
-
-        if seatid > maximum:
-            maximum = seatid
-
-    return maximum
+    return max([to_binary(ticket) for ticket in ipt])
 
 
 def part2(ipt):
     all_seats = range(0, 0b10000000000)
 
     for t in ipt:
-        as_binary = int(to_binary(t), 2)
+        as_binary = to_binary(t)
 
         all_seats = [x for x in all_seats if x != as_binary]
 
