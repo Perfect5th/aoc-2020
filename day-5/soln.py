@@ -12,21 +12,13 @@ def part1(ipt):
 
 
 def part2(ipt):
-    all_seats = range(0, 0b10000000000)
+    ipt = [to_binary(t) for t in ipt]
 
-    for t in ipt:
-        as_binary = to_binary(t)
+    for i in range(1, len(ipt) - 1):
+        if ipt[i-1] != ipt[i] - 1 and ipt[i+1] != ipt[i] + 1:
+            return ipt[i]
 
-        all_seats = [x for x in all_seats if x != as_binary]
-
-    for i, s in enumerate(all_seats):
-        if i == 0 or i == len(all_seats) - 1:
-            continue
-
-        if s != all_seats[i+1] - 1 and s != all_seats[i-1] + 1:
-            return s
-
-    return list(all_seats)
+    return 0
 
 
 if __name__ == '__main__':
