@@ -1,5 +1,6 @@
 qs = [chr(ord('a')+i) for i in range(26)]
 
+
 def read_card(ipt):
     card = ''
     for l in ipt:
