@@ -1,4 +1,4 @@
-def main(ipt, step):
+def solve(ipt, step):
     invalid = 0
     for i in range(step, len(ipt)):
         target = ipt[i]
@@ -43,5 +43,5 @@ if __name__ == '__main__':
         else:
             print('RESULT')
 
-        main(ipt, s)
+        solve(ipt, s)
         print('')
