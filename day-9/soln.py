@@ -1,34 +1,47 @@
-ipt = []
-with open('input.txt') as fp:
-    ipt = [int(l) for l in fp]
+def main(ipt, step):
+    invalid = 0
+    for i in range(step, len(ipt)):
+        target = ipt[i]
+        seen = set()
+        valid = False
 
-step = 25
-invalid = 0
-for i in range(step, len(ipt)):
-    prev = ipt[i-step:i]
+        for j in range(i-step, i):
+            candidate = ipt[j]
 
-    valid = False
-    for j in prev:
-        for k in prev:
-            if j == k:
-                continue
-        
-            if j+k == ipt[i]:
+            if target - candidate in seen and target != target - candidate:
                 valid = True
+            else:
+                seen.add(candidate)
 
-    if not valid:
-        invalid = ipt[i]
-        print(ipt[i])
-        break
-
-for i in range(len(ipt)):
-    total = ipt[i]
-    ran = [ipt[i]]
-    for j in range(i+1, len(ipt)):
-        ran.append(ipt[j])
-        total += ipt[j]
-
-        if total == invalid:
-            print(min(ran) + max(ran))
-        elif total > invalid:
+        if not valid:
+            invalid = target
+            print('part 1: %d' % target)
             break
+
+    for i in range(len(ipt)):
+        total = ipt[i]
+        ran = [ipt[i]]
+        for j in range(i+1, len(ipt)):
+            ran.append(ipt[j])
+            total += ipt[j]
+
+            if total == invalid:
+                print('part 2: %d' % (min(ran) + max(ran)))
+            elif total > invalid:
+                break
+
+
+if __name__ == '__main__':
+    for f, s, t in [('test_input.txt', 5, True), ('input.txt', 25, False)]:
+        ipt = []
+        
+        with open(f) as fp:
+            ipt = [int(l.rstrip('\n')) for l in fp]
+
+        if t:
+            print('TEST')
+        else:
+            print('RESULT')
+
+        main(ipt, s)
+        print('')
