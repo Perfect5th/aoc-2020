@@ -20,6 +20,7 @@ func solve(ipt []int, step int) {
 
 			if seen[target-candidate] && target != target - candidate {
 				valid = true
+				break
 			} else {
 				seen[candidate] = true
 			}

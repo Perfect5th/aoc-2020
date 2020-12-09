@@ -10,6 +10,7 @@ def solve(ipt, step):
 
             if target - candidate in seen and target != target - candidate:
                 valid = True
+                break
             else:
                 seen.add(candidate)
 
@@ -27,6 +28,7 @@ def solve(ipt, step):
 
             if total == invalid:
                 print('part 2: %d' % (min(ran) + max(ran)))
+                return
             elif total > invalid:
                 break
 
