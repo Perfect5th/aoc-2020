@@ -1,218 +1,115 @@
-def solve(ipt):
-    next_phase = ipt[:]
-    for i, row in enumerate(ipt):
-        for j, seat in enumerate(row):
-            up = ipt[i-1][j] if i > 0 else None
-            lup = ipt[i-1][j-1] if i > 0 and j > 0 else None
-            rup = ipt[i-1][j+1] if i > 0 and j < len(row) - 1 else None
-            right = ipt[i][j+1] if j < len(row) - 1 else None
-            down = ipt[i+1][j] if i < len(ipt) - 1 else None
-            ldown = ipt[i+1][j-1] if i < len(ipt) - 1 and j > 0 else None
-            rdown = ipt[i+1][j+1] if i < len(ipt) - 1 and j < len(row) - 1 else None
-            left = ipt[i][j-1] if j > 0 else None
+def check_around(ipt, x, y):
+    for x1 in range(x-1, x+2):
+        if x1 < 0 or x1 >= len(ipt):
+            continue
 
-            if seat == 'L' and all([x is None or x == '.' or x == 'L' for x in [up, right, down, left, ldown, lup, rdown, rup]]):
-                next_phase[i] = next_phase[i][:j] + '#' + (next_phase[i][j+1:] if j < len(row) - 1 else '')
-            elif seat == '#' and sum([1 for x in [up, right, down, left, ldown, lup, rdown, rup] if x == '#']) >= 4:
-                next_phase[i] = next_phase[i][:j] + 'L' + (next_phase[i][j+1:] if j < len(row) - 1 else '')
+        for y1 in range(y-1, y+2):
+            if y1 < 0 or y1 >= len(ipt[0]):
+                continue
 
-    if ipt == next_phase:
-        total = 0
-        for row in ipt:
-            for seat in row:
-                if seat == '#':
-                    total += 1
+            if (x1, y1) == (x, y):
+                continue
 
-        print(total)
-        return
-    
-    solve(next_phase)
-
-
-def see_none(ipt, i, j):
-    i1 = i + 1
-    while i1 < len(ipt):
-        if ipt[i1][j] == '#':
-            return False
-        elif ipt[i1][j] == 'L':
-            break
-        i1 += 1
-
-    i1 = i - 1
-    while i1 >= 0:
-        if ipt[i1][j] == '#':
-            return False
-        elif ipt[i1][j] == 'L':
-            break
-        i1 -= 1
-
-    j1 = j - 1
-    while j1 >= 0:
-        if ipt[i][j1] == '#':
-            return False
-        elif ipt[i][j1] == 'L':
-            break
-        j1 -= 1
-
-    j1 = j + 1
-    while j1 < len(ipt[0]):
-        if ipt[i][j1] == '#':
-            return False
-        elif ipt[i][j1] == 'L':
-            break
-        j1 += 1
-
-    i1 = i + 1
-    j1 = j + 1
-    while i1 < len(ipt) and j1 < len(ipt[0]):
-        if ipt[i1][j1] == '#':
-            return False
-        elif ipt[i1][j1] == 'L':
-            break
-        i1 += 1
-        j1 += 1
-
-    i1 = i - 1
-    j1 = j - 1
-    while i1 >= 0 and j1 >= 0:
-        if ipt[i1][j1] == '#':
-            return False
-        elif ipt[i1][j1] == 'L':
-            break
-        i1 -= 1
-        j1 -= 1
-
-    i1 = i - 1
-    j1 = j + 1
-    while i1 >= 0 and j1 < len(ipt[0]):
-        if ipt[i1][j1] == '#':
-            return False
-        elif ipt[i1][j1] == 'L':
-            break
-        i1 -= 1
-        j1 += 1
-    
-    i1 = i + 1
-    j1 = j - 1
-    while i1 < len(ipt) and j1 >= 0:
-        if ipt[i1][j1] == '#':
-            return False
-        elif ipt[i1][j1] == 'L':
-            break
-        i1 += 1
-        j1 -= 1
+            if ipt[x1][y1] == '#':
+                return False
 
     return True
 
 
-def see_some(ipt, i, j):
+def count_around(ipt, x, y):
     total = 0
+    for x1 in range(x-1, x+2):
+        if x1 < 0 or x1 >= len(ipt):
+            continue
 
-    i1 = i + 1
-    while i1 < len(ipt):
-        if ipt[i1][j] == '#':
-            total += 1
-            break
-        elif ipt[i1][j] == 'L':
-            break
-        i1 += 1
+        for y1 in range(y-1, y+2):
+            if y1 < 0 or y1 >= len(ipt[0]):
+                continue
 
-    i1 = i - 1
-    while i1 >= 0:
-        if ipt[i1][j] == '#':
-            total += 1
-            break
-        elif ipt[i1][j] == 'L':
-            break
-        i1 -= 1
+            if (x1, y1) == (x, y):
+                continue
 
-    j1 = j - 1
-    while j1 >= 0:
-        if ipt[i][j1] == '#':
-            total += 1
-            break
-        elif ipt[i][j1] == 'L':
-            break
-        j1 -= 1
-
-    j1 = j + 1
-    while j1 < len(ipt[0]):
-        if ipt[i][j1] == '#':
-            total += 1
-            break
-        elif ipt[i][j1] == 'L':
-            break
-        j1 += 1
-
-    i1 = i + 1
-    j1 = j + 1
-    while i1 < len(ipt) and j1 < len(ipt[0]):
-        if ipt[i1][j1] == '#':
-            total += 1
-            break
-        elif ipt[i1][j1] == 'L':
-            break
-        i1 += 1
-        j1 += 1
-
-    i1 = i - 1
-    j1 = j - 1
-    while i1 >= 0 and j1 >= 0:
-        if ipt[i1][j1] == '#':
-            total += 1
-            break
-        elif ipt[i1][j1] == 'L':
-            break
-        i1 -= 1
-        j1 -= 1
-
-    i1 = i - 1
-    j1 = j + 1
-    while i1 >= 0 and j1 < len(ipt[0]):
-        if ipt[i1][j1] == '#':
-            total += 1
-            break
-        elif ipt[i1][j1] == 'L':
-            break
-        i1 -= 1
-        j1 += 1
-    
-    i1 = i + 1
-    j1 = j - 1
-    while i1 < len(ipt) and j1 >= 0:
-        if ipt[i1][j1] == '#':
-            total += 1
-            break
-        elif ipt[i1][j1] == 'L':
-            break
-        i1 += 1
-        j1 -= 1
+            if ipt[x1][y1] == '#':
+               total += 1
 
     return total
 
 
-def solve2(ipt):
+def up(x, y):
+    return x - 1, y
+
+def right(x, y):
+    return x, y + 1
+
+def down(x, y):
+    return x + 1, y
+
+def left(x, y):
+    return x, y - 1
+
+
+directions = [
+    up, right, down, left,
+    lambda x, y: up(*right(x, y)), lambda x, y: up(*left(x, y)),
+    lambda x, y: down(*right(x, y)),
+    lambda x, y: down(*left(x, y)),
+]
+
+def move_dir(ipt, direction, x, y):
     while True:
-        next_phase = ipt[:]
-        for i, row in enumerate(ipt):
-            for j, seat in enumerate(row):
-                if seat == 'L' and see_none(ipt, i, j):
-                    next_phase[i] = next_phase[i][:j] + '#' + (next_phase[i][j+1:] if j < len(row) - 1 else '')
-                elif seat == '#' and see_some(ipt, i, j) >= 5:
-                    next_phase[i] = next_phase[i][:j] + 'L' + (next_phase[i][j+1:] if j < len(row) - 1 else '')
+        x, y = direction(x, y)
+        
+        if x < 0 or x >= len(ipt) or y < 0 or y >= len(ipt[0]):
+            raise Exception("TOO FAR")
 
-        if ipt == next_phase:
-            total = 0
-            for row in ipt:
-                for seat in row:
-                    if seat == '#':
-                        total += 1
+        yield x, y
 
-            print(total)
+def check_sight(ipt, x, y):
+    for direction in directions:
+        try:
+            for x1, y1 in move_dir(ipt, direction, x, y):
+                if ipt[x1][y1] == '#':
+                    return False
+                elif ipt[x1][y1] == 'L':
+                    break
+        except:
+            pass
+    
+    return True
+
+
+def count_sight(ipt, x, y):
+    total = 0
+    for direction in directions:
+        try:
+            for x1, y1 in move_dir(ipt, direction, x, y):
+                if ipt[x1][y1] == '#':
+                    total += 1
+                    break
+                elif ipt[x1][y1] == 'L':
+                    break
+        except:
+            pass
+    
+    return total
+
+
+def solve(ipt, should_fill, should_empty):
+    while True:
+        next_phase = [row[:] for row in ipt[:]]
+
+        for x, row in enumerate(ipt):
+            for y, seat in enumerate(row):
+                if seat == 'L' and should_fill(ipt, x, y):
+                    next_phase[x][y] = '#'
+                elif seat == '#' and should_empty(ipt, x, y):
+                    next_phase[x][y] = 'L'
+
+        if all([row1 == next_phase[i] for i, row1 in enumerate(ipt)]):
+            print(sum([1 for row in ipt for seat in row if seat == '#']))
             return
         
         ipt = next_phase
-    
 
 
 if __name__ == '__main__':
@@ -220,13 +117,13 @@ if __name__ == '__main__':
         ipt = []
         
         with open(f) as fp:
-            ipt = [l.rstrip('\n') for l in fp]
+            ipt = [list(l.rstrip('\n')) for l in fp]
 
         if t:
             print('TEST')
         else:
             print('RESULT')
 
-        solve(ipt)
-        solve2(ipt)
+        solve(ipt, check_around, lambda ipt, x, y: count_around(ipt, x, y) >= 4)
+        solve(ipt, check_sight, lambda ipt, x, y: count_sight(ipt, x, y) >= 5)
         print('')
