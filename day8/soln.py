@@ -23,11 +23,11 @@ def run_prgm(ipt):
     return 'looped', acc
 
 
-def part1(ipt):
-    return run_prgm(ipt)[1]
+def solve1(ipt):
+    print(run_prgm(ipt)[1])
 
 
-def part2(ipt):
+def solve2(ipt):
     for i in range(len(ipt)):
         inst, val = ipt[i].split(' ')
         new_ipt = ipt[:]
@@ -40,7 +40,8 @@ def part2(ipt):
         result, acc = run_prgm(new_ipt)
 
         if result == 'terminated':
-            return acc
+            print(acc)
+            return
 
 
 if __name__ == '__main__':

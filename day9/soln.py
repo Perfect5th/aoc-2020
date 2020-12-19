@@ -1,4 +1,7 @@
-def solve(ipt, step):
+def solve1(ipt, print_result=True, **kwargs):
+    ipt = [int(i) for i in ipt]
+    step = 5 if kwargs.get('is_test') else 25
+
     invalid = 0
     for i in range(step, len(ipt)):
         target = ipt[i]
@@ -16,8 +19,15 @@ def solve(ipt, step):
 
         if not valid:
             invalid = target
-            print('part 1: %d' % target)
-            break
+
+            if print_result:
+                print(target)
+
+            return invalid
+
+def solve2(ipt, **kwargs):
+    invalid = solve1(ipt, False, **kwargs)
+    ipt = [int(i) for i in ipt]
 
     for i in range(len(ipt)):
         total = ipt[i]
@@ -27,23 +37,7 @@ def solve(ipt, step):
             total += ipt[j]
 
             if total == invalid:
-                print('part 2: %d' % (min(ran) + max(ran)))
+                print((min(ran) + max(ran)))
                 return
             elif total > invalid:
                 break
-
-
-if __name__ == '__main__':
-    for f, s, t in [('test_input.txt', 5, True), ('input.txt', 25, False)]:
-        ipt = []
-        
-        with open(f) as fp:
-            ipt = [int(l.rstrip('\n')) for l in fp]
-
-        if t:
-            print('TEST')
-        else:
-            print('RESULT')
-
-        solve(ipt, s)
-        print('')

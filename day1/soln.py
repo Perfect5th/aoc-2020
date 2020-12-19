@@ -1,30 +1,30 @@
-
-def part1(ipt, target):
+def solve1(ipt, target=2020, print_result=True):
+    ipt = map(lambda i: int(i), ipt)
     seen = set()
 
     for x in ipt:
         if target - x in seen:
-            return x * (target - x)
+            result = x * (target - x)
+
+            if print_result:
+                print(result)
+
+            return result
 
         seen.add(x)
 
     raise Exception("Couldn't find a match")
 
 
-def part2(ipt, target):
+def solve2(ipt):
+    ipt = [int(i) for i in ipt]
+    target = 2020
+
     for x in ipt:
         try:
-            return part1(ipt, 2020 - x) * x
+            print(solve1(ipt, target - x, False) * x)
+            return
         except:
             continue
 
     raise Exception("Couldn't find a match")
-
-
-if __name__ == '__main__':
-    ipt = None
-
-    with open('input.txt') as fp:
-        ipt = [int(l) for l in fp]
-        print(part1(ipt, 2020))
-        print(part2(ipt, 2020))

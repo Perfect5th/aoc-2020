@@ -1,4 +1,3 @@
-
 byr:1937
 eyr:2030 pid:154364481
 hgt:158cm iyr:2015 ecl:brn hcl:#c0946f cid:155
@@ -1030,4 +1029,3 @@ cid:274 pid:390115952 byr:1934 hgt:161cm iyr:2017 hcl:#b95b0d
 
 ecl:#a16ec8 pid:187cm hcl:z iyr:2029 hgt:170
 byr:2008
-

@@ -53,18 +53,9 @@ def solve(ipt, dimensions=3):
     print(sum([1 for v in points.values() if v == '#']))
 
 
+def solve1(ipt, **kwargs):
+    solve([list(i) for i in ipt])
 
-if __name__ == '__main__':
-    with open('test_input.txt') as test1:
-        print('TEST1')
-        i = [list(l.rstrip('\n')) for l in test1]
-        solve(i)
-        solve(i, 4)
-        print('')
 
-    with open('input.txt') as ipt:
-        print('RESULT')
-        i = [list(l.rstrip('\n')) for l in ipt]
-        solve(i)
-        solve(i, dimensions=4)
-        print('')
+def solve2(ipt, **kwargs):
+    solve([list(i) for i in ipt], 4)

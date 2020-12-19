@@ -18,7 +18,7 @@ def parse_rule(rule, rules_dict):
     rules_dict[int(num)] = rule
 
 
-def solve1(ipt):
+def solve1(ipt, **kwargs):
     rules, messages = input_groups(ipt)
 
     rules_dict = {}
@@ -47,7 +47,7 @@ def solve1(ipt):
     print(len(list(filter(lambda m: re.match(built, m), messages))))
 
 
-def solve2(ipt):
+def solve2(ipt, **kwargs):
     rules, messages = input_groups(ipt)
 
     rules_dict = {}

@@ -1,5 +1,5 @@
-def solve1(ipt):
-    ipt = sorted(ipt)
+def solve1(ipt, **kwargs):
+    ipt = sorted([int(i) for i in ipt])
     
     curr = 0
     ones = 0
@@ -18,8 +18,10 @@ def solve1(ipt):
     print(threes * ones)
 
 
-def solve2(ipt):
+def solve2(ipt, **kwargs):
     memo = [0 for _ in ipt]
+    ipt = sorted([int(i) for i in ipt])
+
     for i, v in enumerate(ipt[:3]):
         if v <= 3:
             memo[i] += 1
@@ -30,20 +32,3 @@ def solve2(ipt):
                 memo[j+i+1] += memo[i]
 
     print(memo[-1])
-
-
-if __name__ == '__main__':
-    for f, t in [('test_input.txt', True), ('input.txt', False)]:
-        ipt = []
-        
-        with open(f) as fp:
-            ipt = [int(l.rstrip('\n')) for l in fp]
-
-        if t:
-            print('TEST')
-        else:
-            print('RESULT')
-
-        solve1(ipt)
-        solve2(sorted(ipt))
-        print('')

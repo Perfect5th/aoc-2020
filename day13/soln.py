@@ -1,4 +1,4 @@
-def solve(ipt):
+def solve1(ipt, **kwargs):
     earliest = int(ipt[0])
     buses = [int(i) for i in ipt[1].split(',') if i != 'x']
     count = 0
@@ -15,8 +15,10 @@ def solve(ipt):
             break
 
     print((min(times.keys()) - int(ipt[0])) * times[min(times.keys())])
-    buses = ipt[1].split(',')
 
+
+def solve2(ipt, **kwargs):
+    buses = ipt[1].split(',')
     start = int(buses[0])
     increment = int(buses[0])
     i = 1
@@ -40,19 +42,3 @@ def solve(ipt):
         start += increment
 
     print(start)
-
-
-if __name__ == '__main__':
-    for f, t in [('test_input.txt', True), ('input.txt', False)]:
-        ipt = []
-        
-        with open(f) as fp:
-            ipt = [l.rstrip('\n') for l in fp]
-
-        if t:
-            print('TEST')
-        else:
-            print('RESULT')
-
-        solve(ipt)
-        print('')

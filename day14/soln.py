@@ -1,4 +1,4 @@
-def solve(ipt):
+def solve1(ipt, **kwargs):
     mem = {}
     mask = ipt[0][7:]
 
@@ -32,7 +32,7 @@ def solve(ipt):
     print(sum([v for k, v in mem.items()]))
 
 
-def solve2(ipt):
+def solve2(ipt, **kwargs):
     mem = {}
     mask = ipt[0][7:]
 
@@ -79,22 +79,3 @@ def solve2(ipt):
             mem[int(''.join(l), 2)] = val
 
     print(sum([v for k, v in mem.items()]))
-
-
-if __name__ == '__main__':
-    with open('test_input1.txt') as test1:
-        print('TEST1')
-        solve([l.rstrip('\n') for l in test1])
-        print('')
-
-    with open('test_input2.txt') as test2:
-        print('TEST2')
-        solve([l.rstrip('\n') for l in test2])
-        print('')
-
-    with open('input.txt') as ipt:
-        print('RESULT')
-        ipt = [l.rstrip('\n') for l in ipt]
-        solve(ipt)
-        solve2(ipt)
-        print('')

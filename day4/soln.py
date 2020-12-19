@@ -1,5 +1,7 @@
 import re
 
+from utils import input_groups
+
 
 fields = ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid']
 rules = {
@@ -22,25 +24,25 @@ def read_passport(ipt):
         passport += l
 
 
-def part1(ipt):
+def solve1(ipt):
     valid = 0
-    for passport in read_passport(ipt):
+    for passport in input_groups(ipt):
         is_valid = True
 
         for f in fields:
-            if f not in passport:
+            if f not in f' {" ".join(passport)} ':
                 is_valid = False
                 break
         
         if is_valid:
             valid += 1
 
-    return valid
+    print(valid)
 
 
 def validate(field, passport):
     rule = rules[field]
-    found = re.search(rule[0], passport)
+    found = re.search(rule[0], f' {" ".join(passport)} ')
 
     if not found:
         return False
@@ -58,9 +60,9 @@ def validate(field, passport):
     return True
 
 
-def part2(ipt):
+def solve2(ipt):
     valid = 0
-    for passport in read_passport(ipt):
+    for passport in input_groups(ipt):
         is_valid = True
 
         for f in fields:
@@ -71,11 +73,4 @@ def part2(ipt):
         if is_valid:
             valid += 1
 
-    return valid
-
-
-if __name__ == '__main__':
-    with open('input.txt') as fp:
-        print(part1(fp))
-        fp.seek(0)
-        print(part2(fp))
+    print(valid)

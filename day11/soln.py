@@ -112,18 +112,9 @@ def solve(ipt, should_fill, should_empty):
         ipt = next_phase
 
 
-if __name__ == '__main__':
-    for f, t in [('test_input.txt', True), ('input.txt', False)]:
-        ipt = []
-        
-        with open(f) as fp:
-            ipt = [list(l.rstrip('\n')) for l in fp]
+def solve1(ipt, **kwargs):
+    solve([list(i) for i in ipt], check_around, lambda ipt, x, y: count_around(ipt, x, y) >= 4)
 
-        if t:
-            print('TEST')
-        else:
-            print('RESULT')
 
-        solve(ipt, check_around, lambda ipt, x, y: count_around(ipt, x, y) >= 4)
-        solve(ipt, check_sight, lambda ipt, x, y: count_sight(ipt, x, y) >= 5)
-        print('')
+def solve2(ipt, **kwargs):
+    solve([list(i) for i in ipt], check_sight, lambda ipt, x, y: count_sight(ipt, x, y) >= 4)

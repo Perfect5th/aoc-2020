@@ -1,6 +1,6 @@
 import math
 
-def solve(ipt):
+def solve1(ipt, **kwargs):
     parsed = [(i[0], int(i[1:])) for i in ipt]
     position = [0, 0, 90]
 
@@ -26,7 +26,8 @@ def solve(ipt):
 
     print(round(abs(position[0]) + abs(position[1])))
 
-def solve2(ipt):
+
+def solve2(ipt, **kwargs):
     parsed = [(i[0], int(i[1:])) for i in ipt]
     position = [1, 10]
     ship = [0, 0]
@@ -57,20 +58,3 @@ def solve2(ipt):
             ship[1] += position[1] * v
 
     print(round(abs(ship[0]) + abs(ship[1])))
-
-
-if __name__ == '__main__':
-    for f, t in [('test_input.txt', True), ('input.txt', False)]:
-        ipt = []
-        
-        with open(f) as fp:
-            ipt = [l.rstrip('\n') for l in fp]
-
-        if t:
-            print('TEST')
-        else:
-            print('RESULT')
-
-        solve(ipt)
-        solve2(ipt)
-        print('')

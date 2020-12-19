@@ -15,7 +15,7 @@ def create_graphmap(ipt):
     return graphmap
 
 
-def part1(ipt, target):
+def solve1(ipt, target='shiny gold'):
     graphmap = create_graphmap(ipt)
 
     def search_graph(root):
@@ -25,10 +25,10 @@ def part1(ipt, target):
 
         return 0
 
-    return sum([search_graph(k) for k, _ in graphmap.items()])
+    print(sum([search_graph(k) for k, _ in graphmap.items()]))
 
 
-def part2(ipt, target):
+def solve2(ipt, target='shiny gold'):
     graphmap = create_graphmap(ipt)
 
     def search_graph(root):
@@ -38,11 +38,4 @@ def part2(ipt, target):
 
         return total
 
-    return search_graph(target)
-
-
-if __name__ == '__main__':
-    with open('input.txt') as fp:
-        ipt = [l for l in fp]
-        print(part1(ipt, 'shiny gold'))
-        print(part2(ipt, 'shiny gold'))
+    print(search_graph(target))

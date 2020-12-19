@@ -56,11 +56,9 @@ def interp_expr(expr):
         return OPS[expr[0]](interp_expr(expr[1]), interp_expr(expr[2]))
 
 
-def solve(ipt):
+def solve1(ipt, **kwargs):
     print(sum([interp_expr(Lisper(expr.replace(' ', '')).parse_expr()) for expr in ipt]))
+
+
+def solve2(ipt, **kwargs):
     print(sum([interp_expr(Lisper(expr.replace(' ', ''), True).parse_expr()) for expr in ipt]))
-
-
-with open('input.txt') as fp:
-    ipt = [l.rstrip('\n') for l in fp]
-    solve(ipt)
