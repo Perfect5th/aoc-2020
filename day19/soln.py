@@ -1,5 +1,4 @@
 import re
-import sys
 
 from utils import memoize, input_groups
 
