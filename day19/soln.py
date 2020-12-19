@@ -54,8 +54,6 @@ def solve2(ipt):
     for rule in rules:
         parse_rule(rule, rules_dict)
 
-    rules_dict[8] = (['42'], ['42', '8'])
-
     @memoize
     def build(num, depth=0):
         rule = rules_dict[num]
