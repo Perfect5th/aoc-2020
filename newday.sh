@@ -11,7 +11,8 @@ DAY_NUM    day number" >&2
     exit 1
 fi
 
-if ! [[ $1 =~ '^[0-9]+$' ]]; then
+RE='^[0-9]+$'
+if ! [[ $1 =~ $RE ]]; then
     echo "ERROR: DAY_NUM must be an integer. Got $1.
 
 usage: ./newday.sh DAY_NUM
